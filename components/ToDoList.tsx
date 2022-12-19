@@ -21,30 +21,72 @@ export default function ToDoList() {
     setTodoItemSelected(param);
     showHideComponents('edit');
   }
+  function addToDoItem() {
+    setTodoItemSelected({});
+    showHideComponents('edit');
+  }
 
   function editGoBackClick() {
     showHideComponents('list');
   }
 
+  function saveClick() {
+    setToDoItems((todoItems) => [...todoItems, todoItemSelected]);
+    editGoBackClick();
+  }
+
+  const handleChangeItemId = (event) => {
+    todoItemSelected.id = event.target.value;
+    setTodoItemSelected(todoItemSelected);
+  };
+
+  const handleChangeItemDescription = (event) => {
+    todoItemSelected.description = event.target.value;
+    setTodoItemSelected(todoItemSelected);
+  };
+
+  function deleteClick() {
+    let filteredToDoItemsList = todoItems.filter(
+      (item) => item.id !== todoItemSelected.id
+    );
+    setToDoItems(filteredToDoItemsList);
+    editGoBackClick();
+  }
+
+  // var filteredArray = arr.filter(e => e !== 'seven')
+
   return (
     <div>
       {displayMode == 'list' && (
-        <table>
-          {todoItems.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.description}</td>
-              <td>
-                <a onClick={() => editToDoItem(item)}>Edit</a>
-              </td>
-            </tr>
-          ))}
-        </table>
+        <div>
+          <table>
+            {todoItems.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.description}</td>
+                <td>
+                  <a onClick={() => editToDoItem(item)}>Edit</a>
+                </td>
+              </tr>
+            ))}
+          </table>
+          <button onClick={() => addToDoItem()}>Add new</button>
+        </div>
       )}
       {displayMode == 'edit' && (
         <div>
-          <input type="text" defaultValue={todoItemSelected.id}></input>
-          <input type="text" defaultValue={todoItemSelected.description}></input>
+          <input
+            type="text"
+            defaultValue={todoItemSelected.id}
+            onChange={handleChangeItemId}
+          ></input>
+          <input
+            type="text"
+            defaultValue={todoItemSelected.description}
+            onChange={handleChangeItemDescription}
+          ></input>
+          <button onClick={() => saveClick()}>Save</button>
+          <button onClick={() => deleteClick()}>Delete</button>
           <button onClick={() => editGoBackClick()}>Back</button>
         </div>
       )}
