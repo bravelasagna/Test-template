@@ -6,14 +6,21 @@ import ProjectsListPaneItem from './ProjectsListPaneItem';
 
 class ProjectsListPane extends React.Component<
   { projectsListProp: ProjectEntity[] },
-  {}
+  { show: boolean; projectsListState: ProjectEntity[] }
 > {
   private txtAddProjectTitle: React.RefObject<HTMLInputElement>;
 
   constructor(props) {
     super(props);
-    this.state = { projectsListState: this.props.projectsListProp };
+
+    this.state = {
+      show: false,
+      projectsListState: this.props.projectsListProp,
+    };
+
     this.addProject = this.addProject.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+
     this.txtAddProjectTitle = React.createRef();
   }
 
@@ -25,6 +32,11 @@ class ProjectsListPane extends React.Component<
     this.props.projectsListProp.push(newProject);
     this.setState({ projectsListState: this.props.projectsListProp });
     this.txtAddProjectTitle.current.value = '';
+    this.setState({ show: true });
+  }
+
+  hideModal() {
+    this.setState({ show: false });
   }
 
   render() {
@@ -41,7 +53,7 @@ class ProjectsListPane extends React.Component<
           className="modal show"
           style={{ display: 'block', position: 'initial' }}
         >
-          <Modal.Dialog>
+          <Modal show={this.state.show} onHide={this.hideModal}>
             <Modal.Header closeButton>
               <Modal.Title>Modal title</Modal.Title>
             </Modal.Header>
@@ -51,7 +63,7 @@ class ProjectsListPane extends React.Component<
             <Modal.Footer>
               <div>asdasd</div>
             </Modal.Footer>
-          </Modal.Dialog>
+          </Modal>
         </div>
       </div>
     );
