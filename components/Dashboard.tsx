@@ -25,12 +25,15 @@ import { useState } from 'react';
 import { ProjectEntity } from '../data/projectEntity';
 import ProjectsListPane from './ProjectsListPane';
 
-class Dashboard extends React.Component<{ projectsList: ProjectEntity[] }, {}> {
+class Dashboard extends React.Component<
+  { projectsListProp: ProjectEntity[] },
+  { projectsListState: ProjectEntity[] }
+> {
   render() {
     return (
       <div>
         DASHBOARD
-        <ProjectsListPane projectsList={this.props.projectsList} />
+        <ProjectsListPane projectsListProp={this.props.projectsListProp} />
       </div>
     );
   }

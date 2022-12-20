@@ -1,20 +1,18 @@
 import * as React from 'react';
 import { useState } from 'react';
-
+import { ProjectEntity } from '../data/projectEntity';
 
 class ProjectsListPaneItem extends React.Component<
-  {projectTitle?: string}, 
-  {}>
-{
-
-  render(){
-    return(
-        <div>
-          Project Name {this.props.projectTitle}
-        </div>
-    )
+  { project: ProjectEntity },
+  {}
+> {
+  render() {
+    return (
+      <div>
+        {this.props.project.projectId} - {this.props.project.title}
+      </div>
+    );
   }
-
 }
 
 export default ProjectsListPaneItem;

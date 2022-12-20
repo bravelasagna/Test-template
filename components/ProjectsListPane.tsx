@@ -1,39 +1,61 @@
-/*
 import * as React from 'react';
 import { useState } from 'react';
-
+import Modal from 'react-bootstrap/Modal';
+import { ProjectEntity } from '../data/projectEntity';
 import ProjectsListPaneItem from './ProjectsListPaneItem';
 
-export default function ProjectsListPane() {
-  return (
-  <div>
-    <ProjectsListPaneItem projectTitle="Project 1" />
-    <ProjectsListPaneItem projectTitle="Project 2" />
-    <ProjectsListPaneItem projectTitle="Project 3"/>
-  </div>);
-}
-*/
-
-import * as React from 'react';
-import { useState } from 'react';
-import { ProjectEntity } from '../data/projectEntity';
-
 class ProjectsListPane extends React.Component<
-  {projectsList: ProjectEntity[]}, 
-  {}>
-{
+  { projectsListProp: ProjectEntity[] },
+  {}
+> {
+  private txtAddProjectTitle: React.RefObject<HTMLInputElement>;
 
-  render(){
-
-    return(
-      <div>
-          {this.props.projectsList.map((project) => (
-            <div>{project.title}</div>
-          ))}
-      </div>
-    )
+  constructor(props) {
+    super(props);
+    this.state = { projectsListState: this.props.projectsListProp };
+    this.addProject = this.addProject.bind(this);
+    this.txtAddProjectTitle = React.createRef();
   }
 
+  addProject() {
+    let newProject: ProjectEntity = {
+      projectId: 3,
+      title: this.txtAddProjectTitle.current.value,
+    };
+    this.props.projectsListProp.push(newProject);
+    this.setState({ projectsListState: this.props.projectsListProp });
+    this.txtAddProjectTitle.current.value = '';
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.projectsListProp.map((project) => (
+          <ProjectsListPaneItem key={project.projectId} project={project} />
+        ))}
+        <div>
+          <input type="text" ref={this.txtAddProjectTitle}></input>
+          <button onClick={this.addProject}>Create Project</button>
+        </div>
+        <div
+          className="modal show"
+          style={{ display: 'block', position: 'initial' }}
+        >
+          <Modal.Dialog>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal title</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Modal body text goes here.</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <div>asdasd</div>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default ProjectsListPane;

@@ -5,17 +5,23 @@ import * as React from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import ToDoList from './components/ToDoList';
+//import ToDoList from './components/To
 import Dashboard from './components/Dashboard';
 
-import { dbTasksList } from './data/localData';
+import LocalData from './data/localData';
+import { ProjectEntity } from './data/projectEntity';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
+let localData = new LocalData();
+let dbProjectsList: ProjectEntity[] = localData.returnLocalDataProjects();
+
+
+
 root.render(
   <StrictMode>
-    <Dashboard projectsList />
+    <Dashboard projectsListProp={dbProjectsList} />
   </StrictMode>
 );
 

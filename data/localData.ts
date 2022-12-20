@@ -3,17 +3,23 @@ import { TaskEntity } from './taskEntity';
 
 // local data records for the Project Entity.
 // A Project is a serie of Tasks that need to be accomplished to reach a specific goal.
-export const dbProjectsList: ProjectEntity[] = [
-  {
-    projectId: 1,
-    title: 'Project ABC',
-  },
-  {
-    projectId: 1,
-    title: 'Another Project',
-  },
-];
+export default class LocalData {
+  returnLocalDataProjects() {
+    const dbProjectsList: ProjectEntity[] = [
+      {
+        projectId: 1,
+        title: 'Project ABC Dave',
+      },
+      {
+        projectId: 2,
+        title: 'Another Project of my local list',
+      },
+    ];
+    return dbProjectsList;
+  }
+}
 
+/*
 // local data records for the Task Entity.
 // A Task represent an activity that must be executed. A Task is linked to an existing Project Entity.
 export const dbTasksList: TaskEntity[] = [
@@ -36,3 +42,4 @@ export const dbTasksList: TaskEntity[] = [
     description: 'Author 3',
   },
 ];
+*/
