@@ -6,7 +6,7 @@ import ProjectsListPaneItem from './ProjectsListPaneItem';
 
 class ProjectsListPane extends React.Component<
   { projectsListProp: ProjectEntity[] },
-  { show: boolean; projectsListState: ProjectEntity[] }
+  { showModalAddProject: boolean; projectsListState: ProjectEntity[] }
 > {
   private txtAddProjectTitle: React.RefObject<HTMLInputElement>;
 
@@ -14,29 +14,62 @@ class ProjectsListPane extends React.Component<
     super(props);
 
     this.state = {
-      show: false,
+      showModalAddProject: false,
       projectsListState: this.props.projectsListProp,
     };
 
-    this.addProject = this.addProject.bind(this);
+    this.btnCreateProjectClicked = this.btnCreateProjectClicked.bind(this);
+    this.btnModalEditProjectCancelClick =
+      this.btnModalEditProjectCancelClick.bind(this);
+    this.btnModalEditProjectSaveClick =
+      this.btnModalEditProjectSaveClick.bind(this);
     this.hideModal = this.hideModal.bind(this);
 
     this.txtAddProjectTitle = React.createRef();
   }
 
+  // opens the modal dialog to create a new project
+  btnCreateProjectClicked() {
+    // clears modal dialog content
+
+    // shows the modal dialog
+    this.setState({ showModalAddProject: true });
+  }
+
+  // closes the modal dialog without actions
+  btnModalEditProjectCancelClick() {
+    // closes modal dialog
+    this.setState({ showModalAddProject: false });
+  }
+
+  // validates user's input and creates a new project record
+  btnModalEditProjectSaveClick() {
+    // validates user input
+
+    // adds project in local database
+    this.addProject();
+
+    // closes modal dialog
+    this.setState({ showModalAddProject: false });
+  }
+
+  // adds a new project entry. Triggered by add project modal window
   addProject() {
+    // creates a new project entry
     let newProject: ProjectEntity = {
       projectId: 3,
       title: this.txtAddProjectTitle.current.value,
     };
     this.props.projectsListProp.push(newProject);
     this.setState({ projectsListState: this.props.projectsListProp });
+
+    // clears textbox input and closes the modal window
     this.txtAddProjectTitle.current.value = '';
-    this.setState({ show: true });
+    this.setState({ showModalAddProject: true });
   }
 
   hideModal() {
-    this.setState({ show: false });
+    this.setState({ showModalAddProject: false });
   }
 
   render() {
@@ -46,22 +79,24 @@ class ProjectsListPane extends React.Component<
           <ProjectsListPaneItem key={project.projectId} project={project} />
         ))}
         <div>
-          <input type="text" ref={this.txtAddProjectTitle}></input>
-          <button onClick={this.addProject}>Create Project</button>
+          <button onClick={this.btnCreateProjectClicked}>Create Project</button>
         </div>
         <div
           className="modal show"
           style={{ display: 'block', position: 'initial' }}
         >
-          <Modal show={this.state.show} onHide={this.hideModal}>
+          <Modal show={this.state.showModalAddProject} onHide={this.hideModal}>
             <Modal.Header closeButton>
               <Modal.Title>Modal title</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p>Modal body text goes here.</p>
+              <input type="text" ref={this.txtAddProjectTitle}></input>
             </Modal.Body>
             <Modal.Footer>
-              <div>asdasd</div>
+              <button onClick={this.btnModalEditProjectCancelClick}>
+                Cancel
+              </button>
+              <button onClick={this.btnModalEditProjectSaveClick}>Save</button>
             </Modal.Footer>
           </Modal>
         </div>

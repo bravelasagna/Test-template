@@ -9,27 +9,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //import ToDoList from './components/To
 import Dashboard from './components/Dashboard';
 
-import LocalData from './data/localData';
-import { ProjectEntity } from './data/projectEntity';
-
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
-let localData = new LocalData();
-let dbProjectsList: ProjectEntity[] = localData.returnLocalDataProjects();
-
-
-
 root.render(
   <StrictMode>
-    <Dashboard projectsListProp={dbProjectsList} />
+    <Dashboard />
   </StrictMode>
 );
-
-/*
-{dbTasksList.map((taskItem) => (
-      <div>
-        {taskItem.taskId} - {taskItem.title}
-      </div>
-    ))}
-*/
