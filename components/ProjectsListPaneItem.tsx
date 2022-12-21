@@ -1,18 +1,26 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { ProjectEntity } from '../data/projectEntity';
 
-class ProjectsListPaneItem extends React.Component<
-  { project: ProjectEntity },
-  {}
-> {
-  render() {
-    return (
-      <div>
-        {this.props.project.projectId} - {this.props.project.title}
-      </div>
-    );
+export default function ProjectsListPaneItem({
+  project,
+  isSelectedProject,
+  onSelectProjectClick,
+}) {
+  let selectedText = '';
+  if (isSelectedProject) {
+    selectedText = '***';
   }
-}
 
-export default ProjectsListPaneItem;
+  return (
+    <div>
+      <span>
+        {project.projectId} - {project.title} - {selectedText}
+      </span>
+      <button
+        className="btn btn-primary"
+        onClick={() => onSelectProjectClick(project.projectId)}
+      >
+        SELECT
+      </button>
+    </div>
+  );
+}
