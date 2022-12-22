@@ -8,38 +8,36 @@ export default class LocalData {
     const dbProjectsList: ProjectEntity[] = [
       {
         projectId: 1,
-        title: 'Project ABC Dave',
+        title: 'Famiglia',
       },
       {
         projectId: 2,
-        title: 'Another Project of my local list',
+        title: 'Formazione Personale Dave',
       },
     ];
     return dbProjectsList;
   }
+  returnLocalDataTasks() {
+    const dbTasksList: TaskEntity[] = [
+      {
+        taskId: 1,
+        projectId: 1,
+        title: 'Andare in lavanderia',
+        description: 'Author 1',
+      },
+      {
+        taskId: 2,
+        projectId: 1,
+        title: 'Spedire raccomandata',
+        description: 'Author 2',
+      },
+      {
+        taskId: 6,
+        projectId: 2,
+        title: 'Finire il corso React JS',
+        description: 'Author 3',
+      },
+    ];
+    return dbTasksList;
+  }
 }
-
-/*
-// local data records for the Task Entity.
-// A Task represent an activity that must be executed. A Task is linked to an existing Project Entity.
-export const dbTasksList: TaskEntity[] = [
-  {
-    taskId: 1,
-    projectId: 1,
-    title: 'Article 1',
-    description: 'Author 1',
-  },
-  {
-    taskId: 2,
-    projectId: 1,
-    title: 'Article 2',
-    description: 'Author 2',
-  },
-  {
-    taskId: 3,
-    projectId: 2,
-    title: 'Article 3',
-    description: 'Author 3',
-  },
-];
-*/

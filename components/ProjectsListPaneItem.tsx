@@ -12,15 +12,9 @@ export default function ProjectsListPaneItem({
 
   return (
     <div>
-      <span>
+      <a onClick={() => onSelectProjectClick(project)} href='#'>
         {project.projectId} - {project.title} - {selectedText}
-      </span>
-      <button
-        className="btn btn-primary"
-        onClick={() => onSelectProjectClick(project.projectId)}
-      >
-        SELECT
-      </button>
+      </a>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import ProjectsListPaneItem from './ProjectsListPaneItem';
 export default function ProjectsListPane({
   listProjects,
   onAddProjectClick,
-  selectedProjectId,
+  selectedProject,
   onSelectProjectClick,
 }) {
   return (
@@ -12,7 +12,7 @@ export default function ProjectsListPane({
       <span>List of Projects</span>
       {listProjects.map((project) => {
         let isSelected = false;
-        if (project.projectId == selectedProjectId) {
+        if (project.projectId == selectedProject.projectId) {
           isSelected = true;
         }
         return (
