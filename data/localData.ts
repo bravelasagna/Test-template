@@ -11,13 +11,13 @@ export default class LocalData {
         title: 'Famiglia',
         tasks: [
           {
-            taskId: 1,
+            taskId: '1-1',
             projectId: 1,
             title: 'Andare in lavanderia',
             description: 'Author 1',
           },
           {
-            taskId: 2,
+            taskId: '1-2',
             projectId: 1,
             title: 'Pagare F24',
             description: 'Author 1',
@@ -29,7 +29,7 @@ export default class LocalData {
         title: 'Formazione',
         tasks: [
           {
-            taskId: 3,
+            taskId: '2-1',
             projectId: 2,
             title: 'Finire corso React',
             description: 'Author 1',

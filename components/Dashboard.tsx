@@ -4,10 +4,12 @@ import { useState } from 'react';
 import LocalData from '../data/localData';
 
 import { ProjectEntity } from '../data/projectEntity';
+import { TaskEntity } from '../data/taskEntity';
 
 import ProjectsListPane from './ProjectsListPane';
 import ProjectsAddModal from './ProjectsAddModal';
 import TasksListPane from './TasksListPane';
+import TasksAddModal from './TasksAddModal';
 
 function Dashboard() {
   // loading local data and stores it into state
@@ -22,6 +24,10 @@ function Dashboard() {
   // modal add project
   const [showModalAddProject, setShowModalAddProject] = useState(false);
   const [txtModalAddProjectTitle, setTxtModalAddProjectTitle] = useState('');
+
+  // modal add task
+  const [showModalAddTask, setShowModalAddTask] = useState(false);
+  const [txtModalAddTaskTitle, setTxtModalAddTaskTitle] = useState('');
 
   // ------------------------------
 
@@ -63,6 +69,32 @@ function Dashboard() {
     setSelectedTask(task);
   }
 
+  // ------------------------------
+  // adds a new task to the current project. Triggered by add task modal window
+  function saveTask() {
+    let newTask: TaskEntity = {
+      taskId:
+        selectedProject.projectId + '-' + (selectedProject.tasks.length + 1),
+      projectId: selectedProject.projectId,
+      title: txtModalAddTaskTitle,
+      description: '',
+    };
+
+    selectedProject.tasks = [...selectedProject.tasks, newTask];
+    setProjectsList(projectsList);
+
+    cancelAddTaskModal();
+  }
+  function showAddTaskModal() {
+    setShowModalAddTask(true);
+  }
+  function onTxtTitleTaskChange(e) {
+    setTxtModalAddTaskTitle(e.target.value);
+  }
+  function cancelAddTaskModal() {
+    setShowModalAddTask(false);
+  }
+
   return (
     <div className="row">
       <div className="col-4">
@@ -82,7 +114,18 @@ function Dashboard() {
         />
       </div>
       <div className="col-8">
-        <TasksListPane currentProject={selectedProject} onSelectTaskClick={selectTask} />
+        <TasksListPane
+          currentProject={selectedProject}
+          onSelectTaskClick={selectTask}
+          onAddTaskClick={showAddTaskModal}
+        />
+        <TasksAddModal
+          showModal={showModalAddTask}
+          onTaskAdd={saveTask}
+          txtTitle={txtModalAddTaskTitle}
+          onTxtTitleChange={onTxtTitleTaskChange}
+          onCancel={cancelAddTaskModal}
+        />
       </div>
     </div>
   );
