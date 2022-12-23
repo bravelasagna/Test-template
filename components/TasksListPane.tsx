@@ -1,7 +1,11 @@
 import * as React from 'react';
 import TasksListPaneItem from './TasksListPaneItem';
 
-export default function TasksListPane({ currentProject, onSelectTaskClick, onAddTaskClick }) {
+export default function TasksListPane({
+  currentProject,
+  onEditTaskClick,
+  onAddTaskClick,
+}) {
   return (
     <div>
       <span>List of Tasks</span>
@@ -11,7 +15,7 @@ export default function TasksListPane({ currentProject, onSelectTaskClick, onAdd
             <TasksListPaneItem
               key={task.taskId}
               task={task}
-              onSelectTaskClick={onSelectTaskClick}
+              onSelectTaskClick={onEditTaskClick}
             />
           </div>
         );

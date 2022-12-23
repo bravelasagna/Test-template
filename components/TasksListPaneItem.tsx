@@ -7,7 +7,7 @@ export default function TasksListPaneItem({
   return (
     <div>
       <a onClick={() => onSelectTaskClick(task)} href='#'>
-        {task.taskId} - {task.title}
+        {task.title}
       </a>
     </div>
   );
