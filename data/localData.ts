@@ -9,35 +9,34 @@ export default class LocalData {
       {
         projectId: 1,
         title: 'Famiglia',
+        tasks: [
+          {
+            taskId: 1,
+            projectId: 1,
+            title: 'Andare in lavanderia',
+            description: 'Author 1',
+          },
+          {
+            taskId: 2,
+            projectId: 1,
+            title: 'Pagare F24',
+            description: 'Author 1',
+          },
+        ],
       },
       {
         projectId: 2,
-        title: 'Formazione Personale Dave',
+        title: 'Formazione',
+        tasks: [
+          {
+            taskId: 3,
+            projectId: 2,
+            title: 'Finire corso React',
+            description: 'Author 1',
+          },
+        ],
       },
     ];
     return dbProjectsList;
-  }
-  returnLocalDataTasks() {
-    const dbTasksList: TaskEntity[] = [
-      {
-        taskId: 1,
-        projectId: 1,
-        title: 'Andare in lavanderia',
-        description: 'Author 1',
-      },
-      {
-        taskId: 2,
-        projectId: 1,
-        title: 'Spedire raccomandata',
-        description: 'Author 2',
-      },
-      {
-        taskId: 6,
-        projectId: 2,
-        title: 'Finire il corso React JS',
-        description: 'Author 3',
-      },
-    ];
-    return dbTasksList;
   }
 }

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import TasksListPaneItem from './TasksListPaneItem';
 
-export default function TasksListPane({ listTasks, onSelectTaskClick }) {
+export default function TasksListPane({ currentProject, onSelectTaskClick }) {
   return (
     <div>
       <span>List of Tasks</span>
-      {listTasks.map((task) => {
+      {currentProject.tasks.map((task) => {
+        console.log(task.taskId);
         return (
           <div>
             <TasksListPaneItem

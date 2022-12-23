@@ -4,7 +4,6 @@ import { useState } from 'react';
 import LocalData from '../data/localData';
 
 import { ProjectEntity } from '../data/projectEntity';
-import { TaskEntity } from '../data/taskEntity';
 
 import ProjectsListPane from './ProjectsListPane';
 import ProjectsAddModal from './ProjectsAddModal';
@@ -14,7 +13,6 @@ function Dashboard() {
   // loading local data and stores it into state
   let localData = new LocalData();
   let dbProjectsList: ProjectEntity[] = localData.returnLocalDataProjects();
-  let dbTasksList: TaskEntity[] = localData.returnLocalDataTasks();
 
   // generic
   const [projectsList, setProjectsList] = useState(dbProjectsList);
@@ -33,6 +31,7 @@ function Dashboard() {
     let newProject: ProjectEntity = {
       projectId: projectsList.length + 1,
       title: txtModalAddProjectTitle,
+      tasks: [],
     };
     // propert way to add an item to an array and re-render state
     setProjectsList([...projectsList, newProject]);
@@ -83,7 +82,7 @@ function Dashboard() {
         />
       </div>
       <div className="col-8">
-        <TasksListPane listTasks={dbTasksList} />
+        <TasksListPane currentProject={selectedProject} onSelectTaskClick={selectTask} />
       </div>
     </div>
   );
