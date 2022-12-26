@@ -20,12 +20,10 @@ function App() {
   );
 }
 
-function ListProjects(dataListProjects) {
-  console.log(dataListProjects);
-
+function ListProjects(projects) {
   return (
     <div>
-      {dataListProjects.map((project) => {
+      {projects.dataListProjects.map((project) => {
         return (
           <div>
             <li key={project.projectId}>{project.title}</li>
