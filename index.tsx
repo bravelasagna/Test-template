@@ -14,17 +14,30 @@ const root = createRoot(rootElement);
 function App() {
   // INIT LOCAL DATA
   const [dataListProjectsState, setDataListProjectsState] = useState(LocalData);
+  const [currentProjectIdState, setCurrentProjectIdState] = useState(0);
+
+  function handleSetCurrentProject(projectId) {
+    setCurrentProjectIdState(projectId);
+    console.log('current project is set to:' + projectId);
+  }
 
   function handleProjectSaved(projectTitle) {
     let a = dataListProjectsState.slice();
-    a.push({projectId:dataListProjectsState.length+1, title:projectTitle, tasks:[]});
+    a.push({
+      projectId: dataListProjectsState.length + 1,
+      title: projectTitle,
+      tasks: [],
+    });
     setDataListProjectsState(a);
     console.log('save project called in parent');
   }
 
   return (
     <div>
-      <ListProjects dataListProjects={dataListProjectsState}></ListProjects>
+      <ListProjects
+        onProjectClick={handleSetCurrentProject}
+        dataListProjects={dataListProjectsState}
+      ></ListProjects>
       <EditProjects onProjectSaved={handleProjectSaved}></EditProjects>
     </div>
   );
