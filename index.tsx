@@ -31,22 +31,26 @@ function App() {
     console.log('current project is set to:' + projectId);
   }
 
-  // happens when the "edit" project is clicked
-  function handleEditProject(projectId) {
-    setCurrentProjectIdState(projectId);
+  function handleAddProjectClick() {
+    setCurrentProjectIdState(0);
     setIsEditProjectState(true);
     setCurrentTaskIdState('');
     setIsEditTaskState(false);
-    console.log('current project is set to:' + projectId);
+    console.log('current project is set to:' + 0);
+  }
+
+  // happens when the "edit" project is clicked
+  function handleEditProject() {
+    setIsEditProjectState(true);
+    setCurrentTaskIdState('');
+    setIsEditTaskState(false);
   }
 
   // renders the input to change the project title only when the "edit" button is clicked (or "add")
   function RenderEditProjectPanel() {
     let existingProjectTitle = '';
     if (currentProjectIdState > 0) {
-      existingProjectTitle = dataListProjectsState.find(
-        (project) => project.projectId === currentProjectIdState
-      ).title;
+      existingProjectTitle = returnCurrentProjectObject().title;
     }
     if (isEditProjectState) {
       return (
@@ -61,7 +65,6 @@ function App() {
   // happens when the 'Save' button is clicked in the projects list (add or update)
   function handleProjectSaved(projectTitle) {
     // if there is no selected project, then we add a new project item
-    console.log(currentProjectIdState);
     if (currentProjectIdState == 0) {
       let newProjectsArray = dataListProjectsState.slice();
       let newId = dataListProjectsState.length + 1;
@@ -93,15 +96,12 @@ function App() {
   function handleOnTaskEditClick(taskId) {
     setCurrentTaskIdState(taskId);
     setIsEditTaskState(true);
-    console.log('current task is set to:' + taskId);
   }
 
   function returnDataListTasksCurrentProject() {
     let tasksList = [];
     if (currentProjectIdState > 0) {
-      tasksList = dataListProjectsState.find(
-        (project) => project.projectId === currentProjectIdState
-      ).tasks;
+      tasksList = returnCurrentProjectObject().tasks;
     }
     return tasksList;
   }
@@ -110,9 +110,7 @@ function App() {
   function RenderEditTaskPanel() {
     let existingTaskTitle = '';
     if (currentTaskIdState != '') {
-      let currentProject = dataListProjectsState.find(
-        (project) => project.projectId === currentProjectIdState
-      );
+      let currentProject = returnCurrentProjectObject();
       existingTaskTitle = currentProject.tasks.find(
         (task) => task.taskId == currentTaskIdState
       ).title;
@@ -136,9 +134,7 @@ function App() {
   function handleTaskSaved(taskTitle) {
     // if there is no selected task, then we add a new project item
     if (currentTaskIdState == '') {
-      let currentProject = dataListProjectsState.find(
-        (project) => project.projectId === currentProjectIdState
-      );
+      let currentProject = returnCurrentProjectObject();
       let newTasksArray = currentProject.tasks.slice();
       let newId = newTasksArray.length + 1;
       newTasksArray.push({
@@ -158,9 +154,7 @@ function App() {
       setIsEditTaskState(false);
       setCurrentTaskIdState('');
     } else {
-      let currentProject = dataListProjectsState.find(
-        (project) => project.projectId === currentProjectIdState
-      );
+      let currentProject = returnCurrentProjectObject();
       let newTasksList = currentProject.tasks.map((obj) => {
         if (obj.taskId == currentTaskIdState) {
           return { ...obj, title: taskTitle };
@@ -187,7 +181,7 @@ function App() {
         <div className="col-4">
           <ListProjects
             onProjectSelectClick={handleSelectProject}
-            onProjectEditClick={handleEditProject}
+            onProjectAddClick={handleAddProjectClick}
             dataListProjects={dataListProjectsState}
             currentProjectId={currentProjectIdState}
           ></ListProjects>
@@ -196,13 +190,38 @@ function App() {
         <div className="col-8">
           <ListTasks
             onTaskEditClick={handleOnTaskEditClick}
+            onProjectEditClick={handleEditProject}
             dataListTasks={returnDataListTasksCurrentProject()}
+            projectTitle={returnCurrentProjectTitle()}
           ></ListTasks>
           <RenderEditTaskPanel></RenderEditTaskPanel>
         </div>
       </div>
     </div>
   );
+
+  // COMMON
+  // returns the full project entity that is currently set in the state
+  function returnCurrentProjectTitle() {
+    let currentProjectTitle = '';
+    if (currentProjectIdState > 0) {
+      currentProjectTitle = dataListProjectsState.find(
+        (project) => project.projectId === currentProjectIdState
+      ).title;
+    }
+    return currentProjectTitle;
+  }
+
+  // returns the title of the project that is currently set in the state
+  function returnCurrentProjectObject() {
+    let currentProject = null;
+    if (currentProjectIdState > 0) {
+      currentProject = dataListProjectsState.find(
+        (project) => project.projectId === currentProjectIdState
+      );
+    }
+    return currentProject;
+  }
 }
 
 // MAIN RENDERING

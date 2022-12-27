@@ -1,7 +1,13 @@
 import { StrictMode, useState } from 'react';
 import React = require('react');
+import { GrEdit } from 'react-icons/gr';
 
-export default function ListTasks({ onTaskEditClick, dataListTasks }) {
+export default function ListTasks({
+  onTaskEditClick,
+  onProjectEditClick,
+  dataListTasks,
+  projectTitle
+}) {
   function handleEditClick(taskId) {
     onTaskEditClick(taskId);
   }
@@ -11,6 +17,10 @@ export default function ListTasks({ onTaskEditClick, dataListTasks }) {
 
   return (
     <div>
+      <div>
+        {projectTitle}
+        <GrEdit onClick={(e) => onProjectEditClick()} />
+      </div>
       {dataListTasks.map((task) => {
         return (
           <li key={task.taskId}>

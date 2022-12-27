@@ -6,21 +6,15 @@ import { GrEdit } from 'react-icons/gr';
 
 export default function ListProjects({
   onProjectSelectClick,
-  onProjectEditClick,
+  onProjectAddClick,
   dataListProjects,
   currentProjectId,
 }) {
   function projectSelectOnClick(projectId) {
     onProjectSelectClick(projectId);
   }
-
-  function projectEditOnClick(projectId) {
-    onProjectEditClick(projectId);
-  }
-
   function handleAddProjectClick() {
-    onProjectSelectClick(0);
-    onProjectEditClick(0);
+    onProjectAddClick();
   }
 
   return (
@@ -39,7 +33,7 @@ export default function ListProjects({
               className={itemClassName}
             >
               {project.title}
-              <GrEdit onClick={(e) => projectEditOnClick(project.projectId)} />
+              
             </ListGroup.Item>
           );
         })}
