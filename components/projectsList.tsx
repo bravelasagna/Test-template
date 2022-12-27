@@ -33,12 +33,14 @@ export default function ListProjects({
               className={itemClassName}
             >
               {project.title}
-              
             </ListGroup.Item>
           );
         })}
       </ListGroup>
-      <Button variant="primary" size="sm" onClick={handleAddProjectClick}><GrEdit />Add Project</Button>
+      <Button variant="primary" size="sm" onClick={handleAddProjectClick}>
+        <GrEdit />
+        Add Project
+      </Button>
     </div>
   );
 }

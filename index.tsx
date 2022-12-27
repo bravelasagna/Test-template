@@ -46,6 +46,11 @@ function App() {
     setIsEditTaskState(false);
   }
 
+  function handleProjectModalCancel() {
+    setIsEditProjectState(false);
+  }
+
+
   // renders the input to change the project title only when the "edit" button is clicked (or "add")
   function RenderEditProjectPanel() {
     let existingProjectTitle = '';
@@ -57,6 +62,7 @@ function App() {
         <EditProjects
           onProjectSaved={handleProjectSaved}
           existingProjectTitle={existingProjectTitle}
+          onClose={handleProjectModalCancel}
         ></EditProjects>
       );
     }
