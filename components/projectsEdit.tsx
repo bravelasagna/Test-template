@@ -1,8 +1,8 @@
 import { StrictMode, useState } from 'react';
 import React = require('react');
 
-export default function EditProjects({ onProjectSaved }) {
-  const [inputTextState, setInputTextState] = useState('');
+export default function EditProjects({ onProjectSaved, existingProjectTitle }) {
+  const [inputTextState, setInputTextState] = useState(existingProjectTitle);
   const [showValidationState, setShowValidationState] = useState(false);
 
   function saveClicked() {
