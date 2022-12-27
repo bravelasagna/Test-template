@@ -5,7 +5,7 @@ export default function ListProjects({
   onProjectSelectClick,
   onProjectEditClick,
   dataListProjects,
-  currentProjectId,
+  currentProjectId, 
 }) {
   function projectSelectOnClick(projectId) {
     onProjectSelectClick(projectId);
