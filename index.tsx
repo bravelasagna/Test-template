@@ -8,6 +8,7 @@ import ListProjects from './components/projectsList';
 import EditProjects from './components/projectsEdit';
 import ListTasks from './components/tasksList';
 import EditTasks from './components/tasksEdit';
+import './style.css';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -121,9 +122,14 @@ function App() {
         <EditTasks
           onTaskSaved={handleTaskSaved}
           existingTaskTitle={existingTaskTitle}
+          onClose={handleTaskModalCancel}
         ></EditTasks>
       );
     }
+  }
+
+  function handleTaskModalCancel() {
+    setIsEditTaskState(false);
   }
 
   // happens when the 'Save' button is clicked in the tasks list (add or update)
@@ -177,18 +183,24 @@ function App() {
 
   return (
     <div>
-      <ListProjects
-        onProjectSelectClick={handleSelectProject}
-        onProjectEditClick={handleEditProject}
-        dataListProjects={dataListProjectsState}
-        currentProjectId={currentProjectIdState}
-      ></ListProjects>
-      <RenderEditProjectPanel></RenderEditProjectPanel>
-      <ListTasks
-        onTaskEditClick={handleOnTaskEditClick}
-        dataListTasks={returnDataListTasksCurrentProject()}
-      ></ListTasks>
-      <RenderEditTaskPanel></RenderEditTaskPanel>
+      <div className="row">
+        <div className="col-4">
+          <ListProjects
+            onProjectSelectClick={handleSelectProject}
+            onProjectEditClick={handleEditProject}
+            dataListProjects={dataListProjectsState}
+            currentProjectId={currentProjectIdState}
+          ></ListProjects>
+          <RenderEditProjectPanel></RenderEditProjectPanel>
+        </div>
+        <div className="col-8">
+          <ListTasks
+            onTaskEditClick={handleOnTaskEditClick}
+            dataListTasks={returnDataListTasksCurrentProject()}
+          ></ListTasks>
+          <RenderEditTaskPanel></RenderEditTaskPanel>
+        </div>
+      </div>
     </div>
   );
 }

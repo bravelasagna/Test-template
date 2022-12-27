@@ -1,11 +1,14 @@
 import { StrictMode, useState } from 'react';
 import React = require('react');
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+import { GrEdit } from 'react-icons/gr';
 
 export default function ListProjects({
   onProjectSelectClick,
   onProjectEditClick,
   dataListProjects,
-  currentProjectId, 
+  currentProjectId,
 }) {
   function projectSelectOnClick(projectId) {
     onProjectSelectClick(projectId);
@@ -22,24 +25,26 @@ export default function ListProjects({
 
   return (
     <div>
-      {dataListProjects.map((project) => {
-        let projectTitle = project.title;
-        if (project.projectId == currentProjectId) {
-          projectTitle += '<--';
-        }
-        return (
-          <li key={project.projectId}>
-            {projectTitle}
-            <button onClick={(e) => projectSelectOnClick(project.projectId)}>
-              Select
-            </button>
-            <button onClick={(e) => projectEditOnClick(project.projectId)}>
-              Edit
-            </button>
-          </li>
-        );
-      })}
-      <button onClick={handleAddProjectClick}>Add Project</button>
+      <ListGroup>
+        {dataListProjects.map((project) => {
+          let projectTitle = project.title;
+          let itemClassName = 'project-item';
+          if (project.projectId == currentProjectId) {
+            itemClassName = 'project-item project-active';
+          }
+          return (
+            <ListGroup.Item
+              key={project.projectId}
+              onClick={(e) => projectSelectOnClick(project.projectId)}
+              className={itemClassName}
+            >
+              {project.title}
+              <GrEdit onClick={(e) => projectEditOnClick(project.projectId)} />
+            </ListGroup.Item>
+          );
+        })}
+      </ListGroup>
+      <Button variant="primary" size="sm" onClick={handleAddProjectClick}><GrEdit />Add Project</Button>
     </div>
   );
 }

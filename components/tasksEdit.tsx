@@ -1,7 +1,10 @@
 import { StrictMode, useState } from 'react';
 import React = require('react');
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-export default function EditTasks({ onTaskSaved, existingTaskTitle }) {
+
+export default function EditTasks({ onTaskSaved, existingTaskTitle, onClose }) {
   const [inputTextState, setInputTextState] = useState(existingTaskTitle);
   const [showValidationState, setShowValidationState] = useState(false);
 
@@ -17,6 +20,10 @@ export default function EditTasks({ onTaskSaved, existingTaskTitle }) {
     setInputTextState('');
   }
 
+  function handleClose() {
+    onClose();
+  }
+
   function handleOnChange(e) {
     setInputTextState(e.target.value);
   }
@@ -29,13 +36,29 @@ export default function EditTasks({ onTaskSaved, existingTaskTitle }) {
 
   return (
     <div>
-      <input
-        type="text"
-        value={inputTextState}
-        onChange={handleOnChange}
-      ></input>
-      <button onClick={saveClicked}>Save</button>
-      <RenderValidation></RenderValidation>
+      <Modal show={true} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <input
+            type="text"
+            value={inputTextState}
+            onChange={handleOnChange}
+          ></input>
+          <RenderValidation></RenderValidation>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={saveClicked}>
+            Save changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
