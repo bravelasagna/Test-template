@@ -1,20 +1,3 @@
-https://github.com/meabhisingh/mernProjectEcommerce
-https://github.com/mkaya13/react-todo-list
-https://uizard.io/templates/web-app-templates/to-do-web-app/ 
-
-
-https://ivp-dev.github.io/react-bootstrap-sidebar-menu/
-
-
-
-
-
-
-
-
-
-
-
 import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { StrictMode, useState } from 'react';
@@ -198,28 +181,21 @@ export default function App() {
   }
   // TASKS MANAGEMENT -------------------------
 
+
+
+  function changeUser() {
+    setUserTest("altro utente");
+  }
+  const [userTest, setUserTest] = useState('Davide');
+
   return (
     <div>
-      <div className="row">
-        <div className="col-4">
-          <ListProjects
-            onProjectSelectClick={handleSelectProject}
-            onProjectAddClick={handleAddProjectClick}
-            dataListProjects={dataListProjectsState}
-            currentProjectId={currentProjectIdState}
-          ></ListProjects>
-          <RenderEditProjectPanel></RenderEditProjectPanel>
-        </div>
-        <div className="col-8">
-          <ListTasks
-            onTaskEditClick={handleOnTaskEditClick}
-            onProjectEditClick={handleEditProject}
-            dataListTasks={returnDataListTasksCurrentProject()}
-            projectTitle={returnCurrentProjectTitle()}
-          ></ListTasks>
-          <RenderEditTaskPanel></RenderEditTaskPanel>
-        </div>
-      </div>
+      <div>this is the app Main div</div>
+      <button onClick={(e) => changeUser()}>change user</button>
+      <Routes>
+        <Route path="/page1" element={<Page1 propUser={userTest} />} />
+        <Route path="/page2" element={<Page2 propUser={userTest} />} />
+      </Routes>
     </div>
   );
 
@@ -246,5 +222,3 @@ export default function App() {
     return currentProject;
   }
 }
-
-
