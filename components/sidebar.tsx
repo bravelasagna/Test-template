@@ -21,6 +21,6 @@ export default function SideBar() {
   interface SideBarMenuItem {
     to: string;
     caption: string;
-    icon: string;
+    icon?: string;
   }
 }
