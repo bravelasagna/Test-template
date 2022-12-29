@@ -3,7 +3,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
-import './style.css';
+import './css/common.css';
+import './css/nav.css';
 
 import App from './app';
 
@@ -13,7 +14,7 @@ const root = createRoot(rootElement);
 // MAIN RENDERING
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter> 
       <App />
     </BrowserRouter>
   </StrictMode>

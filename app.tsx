@@ -17,28 +17,39 @@ import PagesColleagues from './pages/colleagues';
 
 // MAIN APP
 export default function App() {
-
   return (
     <div>
       <div className="page">
         <div className="sidebar">
+          <div className="navbar-brand-container">
+            <div className="container-fluid">
+              <a className="navbar-brand" href="#">
+                HR-Soft
+              </a>
+            </div>
+          </div>
           <SideBar />
         </div>
         <main>
-          <Routes>
-            <Route path="/" element={<PagesHomepage  />} />
-            <Route
-              path="/homepage"
-              element={<PagesHomepage  />}
-            />
-            <Route
-              path="/colleagues"
-              element={<PagesColleagues  />}
-            />
-          </Routes>
+          <div className="top-row px-4">
+            <div>Davide Galimmerbt</div>
+            <a className="nav-link" href="login">
+              <span className="oi oi-list-rich"></span> Login
+            </a>
+            <div>Logout</div>
+          </div>
+          <article className="content px-4">
+            <Routes>
+              <Route path="/" element={<PagesHomepage />} />
+              <Route path="/homepage" element={<PagesHomepage />} />
+              <Route path="/colleagues" element={<PagesColleagues />} />
+            </Routes>
+          </article>
+          <footer className="d-flex flex-wrap justify-content-center align-items-center px-3 pt-4 pb-4 mt-5 border-top app-footer">
+            Copyright La mia App molto bella - 2022
+          </footer>
         </main>
       </div>
     </div>
   );
-
 }

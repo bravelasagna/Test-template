@@ -1,0 +1,99 @@
+a,
+.btn-link {
+  color: #0071c1;
+}
+
+/* SIDEBAR ELEMENTS */
+.sidebar {
+  background-color: #404e67;
+}
+
+/* NAV ITEMS AND NAV BAR */
+.navbar {
+  -webkit-box-shadow: 0 0 11px rgb(0 0 0 / 13%);
+  box-shadow: 0 0 11px rgb(0 0 0 / 23%);
+  margin-bottom: 16px;
+}
+.navbar-toggler {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.navbar-brand-container {
+  height: 3.5rem;
+  background-color: #00000066;
+  color: #fff;
+  box-shadow: 0 0 11px #0000003b;
+  margin-bottom: 16px;
+  padding-left: 1.2rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.navbar-brand {
+  font-size: 1.1rem;
+}
+.nav-item {
+  font-size: 0.9rem;
+}
+.nav-item:first-of-type {
+  padding-top: 0.5rem;
+}
+.nav-item:last-of-type {
+  padding-bottom: 1rem;
+}
+
+.nav-item a {
+  color: #d7d7d7;
+  border-radius: 4px;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  line-height: 3rem;
+}
+.nav-item a.active {
+  background-color: #bb4354ab;
+  color: #fff !important;
+}
+.nav-item a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+@media (min-width: 641px) {
+  .navbar-toggler {
+    display: none;
+  }
+
+  .collapse {
+    /* Never collapse the sidebar for wide screens */
+    display: block;
+  }
+}
+
+.menu-icon {
+  width: 20px;
+  margin-right: 10px;
+}
+.menu-icon-small {
+  width: 16px;
+  margin-right: 10px;
+}
+
+.nav-item-no-bottom {
+  padding-bottom: 2px !important;
+}
+.nav-link {
+  padding: 0.5rem 1rem;
+  padding-left: 1rem;
+}
+.nav-link-small {
+  height: 2rem !important;
+}
+
+/* OTHERS */
+.nav-amministrazione {
+  margin-left: 14px;
+  color: #8b8b8b;
+  margin-bottom: 10px;
+  margin-top: 30px;
+}

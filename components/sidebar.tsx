@@ -1,19 +1,49 @@
 import { StrictMode, useState } from 'react';
 import React = require('react');
-import { Link } from 'react-router-dom';
+import {NavLink, Link } from 'react-router-dom';
 
 export default function SideBar() {
   let menuItems: SideBarMenuItem[] = [];
   menuItems.push({
     to: '/homepage',
     caption: 'Homepage',
+    icon: 'home.png',
+  });
+  menuItems.push({
+    to: '/calendar',
+    caption: 'Calendario',
     icon: 'calendar.png',
   });
   menuItems.push({
+    to: '/requests',
+    caption: 'Richieste',
+    icon: 'approved.png',
+  });
+  menuItems.push({
     to: '/colleagues',
-    caption: 'Colleagues',
+    caption: 'Colleghi',
     icon: 'people.png',
   });
+  menuItems.push({
+    to: '/thanksmatters',
+    caption: '#ThanksMatters',
+    icon: 'heart.png',
+  });
+  menuItems.push({
+    to: '/bookroom',
+    caption: 'Prenota Sala',
+    icon: 'meeting-room.png',
+  });
+  menuItems.push({
+    to: '/travels',
+    caption: 'Trasferte',
+    icon: 'plane.png',
+  });
+  menuItems.push({
+    to: '/documents',
+    caption: 'Documenti',
+    icon: 'file.png',
+  });            
 
   let tempPathAssets =
     'https://raw.githubusercontent.com/bravelasagna/Test-template/main/assets/';
@@ -22,10 +52,10 @@ export default function SideBar() {
     <nav className="flex-column">
       {menuItems.map((menu) => (
         <div className="nav-item px-3">
-          <Link to={menu.to} className="nav-link">
+          <NavLink to={menu.to} className="nav-link">
             <img className="menu-icon" src={tempPathAssets + menu.icon} />
             {menu.caption}
-          </Link>
+          </NavLink>
         </div>
       ))}
     </nav>
