@@ -10,6 +10,8 @@ import EditProjects from './components/projectsEdit';
 import ListTasks from './components/tasksList';
 import EditTasks from './components/tasksEdit';
 
+import SideBar from './components/sidebar';
+
 import PagesHomepage from './pages/homepage';
 import PagesColleagues from './pages/colleagues';
 
@@ -19,7 +21,9 @@ export default function App() {
   return (
     <div>
       <div className="page">
-        <div className="sidebar"></div>
+        <div className="sidebar">
+          <SideBar />
+        </div>
         <main>
           <Routes>
             <Route path="/" element={<PagesHomepage  />} />
