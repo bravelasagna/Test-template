@@ -1,19 +1,25 @@
 import { StrictMode, useState, useEffect, useCallback } from 'react';
 import React = require('react');
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import ReactDataGrid from '@inovua/reactdatagrid-community';
 import '@inovua/reactdatagrid-community/index.css';
 
-import LinkButton from './../ui/linkButton';
-import ListTasks from './../components/tasksList';
+import TeamsController from './../controllers/teamsController';
 
 import { TeamEntity } from './../models/teamEntity';
 
 export default function PagesAdminTeams() {
+  // SYSTEM
+  const navigate = useNavigate();
+  let teamsController: TeamsController = new TeamsController();
+
   // STATE OBJECTS
   const [showPanel, setShowPanel] = useState('list');
-  const [teamsList, setTeamsList] = useState(new Array<TeamEntity>());
+  const [teamsList, setTeamsList] = useState([]);
   const [currentTeamId, setCurrentTeamId] = useState(0);
+  const [currentTeamEditServerData, setCurrentTeamEditServerData] = useState(
+    {}
+  );
   const [txtTeamNameValueState, setTxtTeamNameValueState] = useState('');
 
   // DATAGRID CONFIG
@@ -24,22 +30,20 @@ export default function PagesAdminTeams() {
 
   // ON LOAD
   useEffect(() => {
-    fetch('https://mockend.com/bravelasagna/test-template/Teams?limit=5')
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          setTeamsList(result);
-        },
-        (error) => {}
-      );
+    async function fetchTeamsList() {
+      await teamsController.List().then((data) => {
+        setTeamsList(data);
+      });
+    }
+    fetchTeamsList();
   }, []);
 
   // LIST PANEL
   const onRowClick = useCallback((rowProps, event) => {
     setShowPanel('edit');
-    setTxtTeamNameValueState(rowProps.data.teamName);
+    setTxtTeamNameValueState('');
     setCurrentTeamId(rowProps.data.teamId);
+    getTeamDataById(rowProps.data.teamId);
   }, []);
 
   function handleAddClick() {
@@ -48,7 +52,18 @@ export default function PagesAdminTeams() {
     setCurrentTeamId(0);
   }
 
+  function x(data) {
+    setCurrentTeamEditServerData(data);
+    setTxtTeamNameValueState(data.teamName);
+  }
+
   // EDIT PANEL
+  async function getTeamDataById(teamId) {
+    await teamsController.GetById(teamId).then((data) => {
+      x(data);
+    });
+  }
+
   function handleCancelClick() {
     setShowPanel('list');
   }
@@ -87,7 +102,7 @@ export default function PagesAdminTeams() {
         <br />
         <br />
         <br />
-        <LinkButton to="/admin">Torna Indietro</LinkButton>
+        <button onClick={(e) => navigate('/admin')}>Go Home</button>
         <button onClick={(e) => handleAddClick()}>Crea nuovo Team</button>
       </div>
       <div hidden={showPanel != 'edit'}>
