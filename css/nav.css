@@ -84,7 +84,7 @@ a,
 }
 .nav-link {
   padding: 0.5rem 1rem;
-  padding-left: 1rem;
+  padding-left: 1rem !important;
 }
 .nav-link-small {
   height: 2rem !important;

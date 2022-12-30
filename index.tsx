@@ -12,8 +12,9 @@ const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 // MAIN RENDERING
+// NOTE: Strict mode causes TWICE the rendering. In production, it will only cause it once. So do not remove it.
 root.render(
-  <StrictMode>
+  <StrictMode>    
     <BrowserRouter> 
       <App />
     </BrowserRouter>

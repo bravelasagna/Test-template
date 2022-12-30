@@ -43,6 +43,11 @@ export default function SideBar() {
     to: '/documents',
     caption: 'Documenti',
     icon: 'file.png',
+  });      
+  menuItems.push({
+    to: '/admin',
+    caption: 'Pannello Controllo',
+    icon: 'file.png',
   });            
 
   let tempPathAssets =
