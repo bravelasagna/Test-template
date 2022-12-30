@@ -22,6 +22,26 @@ export default function PagesAdminTeams(propUser) {
   useEffect(() => {
     setTeamsList(LocalData.Teams);
     console.log('use effect was called');
+
+    fetch("https://expresssimplecwxaq7-l0g5--3000.local-credentialless.webcontainer.io/test")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      }
+    )
+
+
+
   }, []);
 
   const onRowClick = useCallback((rowProps, event) => {
