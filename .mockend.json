@@ -1,6 +1,6 @@
 {
   "Team": {
-    "teamId": { "int": {} },
+    "teamId": { "int": { "min": 0, "max": 100 } },
     "teamName": { "string": {} },
     "description": { "string": {} }
   }

@@ -13,7 +13,6 @@ export default function PagesAdminTeams(propUser) {
   const [teamsList, setTeamsList] = useState(new Array<TeamEntity>());
   const [txtTeamNameValueState, setTxtTeamNameValueState] = useState('');
 
-
   const columns = [
     { name: 'teamId', header: 'TeamId', minWidth: 50, defaultFlex: 2 },
     { name: 'teamName', header: 'Name', minWidth: 50, defaultFlex: 2 },
@@ -23,45 +22,36 @@ export default function PagesAdminTeams(propUser) {
     setTeamsList(LocalData.Teams);
     console.log('use effect was called');
 
-    fetch("https://mockend.com/bravelasagna/test-template/users")
-    .then(res => res.json())
-    .then(
-      (result) => {
-        console.log(result);
-      },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        });
-      }
-    )
-
-
-
+    fetch('https://mockend.com/bravelasagna/test-template/Teams?limit=5')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {}
+      );
   }, []);
 
   const onRowClick = useCallback((rowProps, event) => {
     console.log(rowProps);
-    setShowPanel("edit");
+    setShowPanel('edit');
     setTxtTeamNameValueState(rowProps.data.teamName);
   }, []);
 
   function handleCancelClick() {
-    setShowPanel("list");
+    setShowPanel('list');
   }
 
-  
   function handleOnChange(e) {
     setTxtTeamNameValueState(e.target.value);
   }
 
   function RenderValidation() {
     //if (showValidationState) {
-      //return <span>Inserire il nome progetto</span>;
+    //return <span>Inserire il nome progetto</span>;
     //}
     return <div></div>;
   }
@@ -87,11 +77,11 @@ export default function PagesAdminTeams(propUser) {
         DETTAGLI TEAM
         <br />
         <input
-            type="text"
-            value={txtTeamNameValueState}
-            onChange={handleOnChange}
-          ></input>
-          <RenderValidation></RenderValidation>
+          type="text"
+          value={txtTeamNameValueState}
+          onChange={handleOnChange}
+        ></input>
+        <RenderValidation></RenderValidation>
         <br />
         <br />
         <a onClick={(e) => handleCancelClick()}>Torna alla lista</a>
