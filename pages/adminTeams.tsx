@@ -1,15 +1,21 @@
-import { StrictMode, useState, useEffect } from 'react';
+import { StrictMode, useState, useEffect, useCallback } from 'react';
 import React = require('react');
 import { Link } from 'react-router-dom';
 import ReactDataGrid from '@inovua/reactdatagrid-community';
+import '@inovua/reactdatagrid-community/index.css';
 
 import { LocalData } from '../localData';
 
 import { TeamEntity } from './../models/teamEntity';
 
 export default function PagesAdminTeams(propUser) {
+  const [showPanel, setShowPanel] = useState('list');
   const [teamsList, setTeamsList] = useState(new Array<TeamEntity>());
+  const [txtTeamNameValueState, setTxtTeamNameValueState] = useState('');
+
+
   const columns = [
+    { name: 'teamId', header: 'TeamId', minWidth: 50, defaultFlex: 2 },
     { name: 'teamName', header: 'Name', minWidth: 50, defaultFlex: 2 },
   ];
 
@@ -18,20 +24,58 @@ export default function PagesAdminTeams(propUser) {
     console.log('use effect was called');
   }, []);
 
+  const onRowClick = useCallback((rowProps, event) => {
+    console.log(rowProps);
+    setShowPanel("edit");
+    setTxtTeamNameValueState(rowProps.data.teamName);
+  }, []);
+
+  function handleCancelClick() {
+    setShowPanel("list");
+  }
+
+  
+  function handleOnChange(e) {
+    setTxtTeamNameValueState(e.target.value);
+  }
+
+  function RenderValidation() {
+    //if (showValidationState) {
+      //return <span>Inserire il nome progetto</span>;
+    //}
+    return <div></div>;
+  }
+
   return (
     <div>
-      GESTISCI TEAMS
-      <br />
-      <br />
-      <ReactDataGrid
-        idProperty="teamName"
-        columns={columns}
-        dataSource={teamsList}
-      />
-      <br />
-      <br />
-      <br />
-      <Link to={'/admin'}>torna pannello di controllo</Link>
+      <div hidden={showPanel != 'list'}>
+        GESTISCI TEAMS
+        <br />
+        <br />
+        <ReactDataGrid
+          idProperty="teamId"
+          columns={columns}
+          dataSource={teamsList}
+          onRowClick={onRowClick}
+        />
+        <br />
+        <br />
+        <br />
+        <Link to={'/admin'}>torna pannello di controllo</Link>
+      </div>
+      <div hidden={showPanel != 'edit'}>
+        DETTAGLI TEAM
+        <br />
+        <input
+            type="text"
+            value={txtTeamNameValueState}
+            onChange={handleOnChange}
+          ></input>
+          <RenderValidation></RenderValidation>
+        <br />
+        <br />
+        <a onClick={(e) => handleCancelClick()}>Torna alla lista</a>
+      </div>
     </div>
   );
 }
