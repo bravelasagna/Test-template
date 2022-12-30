@@ -1,15 +1,7 @@
 {
-  "Teams": [
-    {
-      "teamId": 1,
-      "teamName": "Developers",
-      "description": ""
-    },
-    {
-      "teamId": 2,
-      "teamName": "Team Allianz",
-      "description": ""
-    }
-  ],
-  "Employees": []
+  "Teams": {
+    "teamId": { "string": {} },
+    "teamName": { "boolean": {} },
+    "description": { "string": {} }
+  }
 }
