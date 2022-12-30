@@ -23,7 +23,7 @@ export default function PagesAdminTeams(propUser) {
     setTeamsList(LocalData.Teams);
     console.log('use effect was called');
 
-    fetch("https://expresssimplecwxaq7-l0g5--3000.local-credentialless.webcontainer.io/test")
+    fetch("https://mockend.com/bravelasagna/test-template/users")
     .then(res => res.json())
     .then(
       (result) => {

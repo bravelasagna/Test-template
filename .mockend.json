@@ -1,5 +1,15 @@
 {
-  "User": {
-    "title": { "string": {} }
-  }
+  "Teams": [
+    {
+      "teamId": 1,
+      "teamName": "Developers",
+      "description": ""
+    },
+    {
+      "teamId": 2,
+      "teamName": "Team Allianz",
+      "description": ""
+    }
+  ],
+  "Employees": []
 }
