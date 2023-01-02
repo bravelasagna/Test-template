@@ -1,7 +1,8 @@
 export default class TeamsController {
   async List() {
     const response = await fetch(
-      'https://mockend.com/bravelasagna/test-template/Teams?limit=5'
+      'https://expresssimplecwxaq7-l0g5--3010.local-credentialless.webcontainer.io/teams',
+      { mode: 'no-cors' }
     );
     const data = await response.json();
     return data;

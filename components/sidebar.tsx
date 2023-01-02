@@ -1,6 +1,6 @@
 import { StrictMode, useState } from 'react';
 import React = require('react');
-import {NavLink, Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 export default function SideBar() {
   let menuItems: SideBarMenuItem[] = [];
@@ -43,12 +43,12 @@ export default function SideBar() {
     to: '/documents',
     caption: 'Documenti',
     icon: 'file.png',
-  });      
+  });
   menuItems.push({
     to: '/admin',
     caption: 'Pannello Controllo',
     icon: 'file.png',
-  });            
+  });
 
   let tempPathAssets =
     'https://raw.githubusercontent.com/bravelasagna/Test-template/main/assets/';
@@ -56,7 +56,7 @@ export default function SideBar() {
   return (
     <nav className="flex-column">
       {menuItems.map((menu) => (
-        <div className="nav-item px-3">
+        <div className="nav-item px-3" key={menu.to}>
           <NavLink to={menu.to} className="nav-link">
             <img className="menu-icon" src={tempPathAssets + menu.icon} />
             {menu.caption}
