@@ -32,7 +32,7 @@ export default function PagesAdminTeams() {
   useEffect(() => {
     async function fetchTeamsList() {
       await teamsController.List().then((data) => {
-        setTeamsList(data);
+        setTeamsList(data.Teams);
       });
     }
     fetchTeamsList();
@@ -53,6 +53,7 @@ export default function PagesAdminTeams() {
   }
 
   function x(data) {
+    console.log(data);
     setCurrentTeamEditServerData(data);
     setTxtTeamNameValueState(data.teamName);
   }
@@ -60,7 +61,7 @@ export default function PagesAdminTeams() {
   // EDIT PANEL
   async function getTeamDataById(teamId) {
     await teamsController.GetById(teamId).then((data) => {
-      x(data);
+      x(data[0]);
     });
   }
 
