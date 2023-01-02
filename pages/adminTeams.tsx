@@ -7,6 +7,7 @@ import '@inovua/reactdatagrid-community/index.css';
 import TeamsController from './../controllers/teamsController';
 
 import { TeamEntity } from './../models/teamEntity';
+import ModalConfirm from '../components/modalConfirm';
 
 export default function PagesAdminTeams() {
   // SYSTEM
@@ -21,6 +22,7 @@ export default function PagesAdminTeams() {
     {}
   );
   const [txtTeamNameValueState, setTxtTeamNameValueState] = useState('');
+  const [showTeamDeleteConfirm, setShowTeamDeleteConfirm] = useState(false);
 
   // DATAGRID CONFIG
   const columns = [
@@ -32,7 +34,7 @@ export default function PagesAdminTeams() {
   useEffect(() => {
     async function fetchTeamsList() {
       await teamsController.List().then((data) => {
-        setTeamsList(data.Teams);
+        setTeamsList(data);
       });
     }
     fetchTeamsList();
@@ -74,11 +76,22 @@ export default function PagesAdminTeams() {
   }
 
   function handleDeleteClick() {
-    setShowPanel('list');
+    // shows modal dialog confirm
+    setShowTeamDeleteConfirm(true);
+    //setShowPanel('list');
   }
 
-  function handleSaveClick() {
-    setShowPanel('list');
+  async function handleSaveClick() {
+    let currentTeamsList = teamsList.slice();
+    let newId = currentTeamsList.length + 1;
+    currentTeamsList.push({
+      teamId: newId,
+      teamName: txtTeamNameValueState,
+    });
+    await teamsController.Save(currentTeamsList).then((data) => {
+      console.log(data);
+    });
+    //setShowPanel('list');
   }
 
   function RenderValidation() {
@@ -120,6 +133,7 @@ export default function PagesAdminTeams() {
         <button onClick={(e) => handleCancelClick()}>Torna alla lista</button>
         <button onClick={(e) => handleDeleteClick()}>Delete</button>
         <button onClick={(e) => handleSaveClick()}>Save</button>
+        <ModalConfirm show={showTeamDeleteConfirm}></ModalConfirm>
       </div>
     </div>
   );

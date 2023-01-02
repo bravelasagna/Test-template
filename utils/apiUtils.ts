@@ -7,6 +7,7 @@ export default class ApiUtils {
       'X-Access-Key': '1',
       'X-Bin-Meta': 'false',
       'X-JSON-Path': jsonPath,
+      'Content-Type': 'application/json',
     };
     return result;
   }

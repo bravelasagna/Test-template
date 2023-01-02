@@ -18,8 +18,22 @@ export default class TeamsController {
       'https://api.jsonbin.io/v3/b/63b2eb5801a72b59f23e89b6/',
       {
         headers: this.apiUtils.adjustApiHeadersForJsonBin(
-          '$..Teams[?(@.teamId==' + teamId + ')]'
+          '$..[?(@.teamId==' + teamId + ')]'
         ),
+      }
+    );
+    const data = await response.json();
+    return data;
+  }
+  async Save(team) {
+    let postBody = JSON.stringify(team);
+
+    const response = await fetch(
+      'https://api.jsonbin.io/v3/b/63b2eb5801a72b59f23e89b6/',
+      {
+        method: 'PUT',
+        headers: this.apiUtils.adjustApiHeadersForJsonBin(''),
+        body: postBody,
       }
     );
     const data = await response.json();
