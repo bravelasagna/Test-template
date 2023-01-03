@@ -26,7 +26,7 @@ export default function PagesAdminTeams() {
   let iniDeleteConfirmParams: ModalConfirmParams = {
     show: false,
     body: 'Are you sure you want to delete this Team?',
-    onClose: handleDeleteModalClose(),
+    onClose: handleDeleteModalClose,
   };
   const [deleteConfirmParams, setDeleteConfirmParams] = useState(
     iniDeleteConfirmParams
@@ -98,7 +98,10 @@ export default function PagesAdminTeams() {
   }
 
   function handleDeleteModalClose() {
-
+    setDeleteConfirmParams((deleteConfirmParams) => ({
+      ...deleteConfirmParams,
+      show: false,
+    }));
   }
 
   async function handleSaveClick() {

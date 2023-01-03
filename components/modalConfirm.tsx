@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 export class ModalConfirmParams {
   show: boolean;
   body: string;
-  onClose: void;
+  onClose: () => void;
 }
 
 export default function ModalConfirm(params: ModalConfirmParams) {
