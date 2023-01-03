@@ -7,15 +7,20 @@ export class ModalConfirmParams {
   show: boolean;
   body: string;
   onClose: () => void;
+  onConfirm: () => void;
 }
 
 export default function ModalConfirm(params: ModalConfirmParams) {
   // params.show -> display the delete modal
   // params.body -> message in the body of the confirm modal
-  console.log(params);
+
 
   const handleClose = () => {
     params.params.onClose();
+  };
+
+  const handleConfirm = () => {
+    params.params.onConfirm();
   };
 
   return (
@@ -28,8 +33,12 @@ export default function ModalConfirm(params: ModalConfirmParams) {
         <Modal.Body>{params.params.body}</Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary">No</Button>
-          <Button variant="primary">Yes</Button>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleConfirm}>
+            Yes
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

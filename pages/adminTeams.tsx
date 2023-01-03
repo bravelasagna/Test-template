@@ -19,14 +19,20 @@ export default function PagesAdminTeams() {
   const [showPanel, setShowPanel] = useState('list');
   const [teamsList, setTeamsList] = useState([]);
   const [currentTeamId, setCurrentTeamId] = useState(0);
+  let iniCurrentTeamEditServerData: TeamEntity = {
+    teamId: 0,
+    teamName: '',
+    description: '',
+  };
   const [currentTeamEditServerData, setCurrentTeamEditServerData] = useState(
-    {}
+    iniCurrentTeamEditServerData
   );
   const [txtTeamNameValueState, setTxtTeamNameValueState] = useState('');
   let iniDeleteConfirmParams: ModalConfirmParams = {
     show: false,
     body: 'Are you sure you want to delete this Team?',
     onClose: handleDeleteModalClose,
+    onConfirm: handleDeleteModalConfirm,
   };
   const [deleteConfirmParams, setDeleteConfirmParams] = useState(
     iniDeleteConfirmParams
@@ -65,15 +71,26 @@ export default function PagesAdminTeams() {
   }
 
   function x(data) {
-    console.log(data);
     setCurrentTeamEditServerData(data);
     setTxtTeamNameValueState(data.teamName);
   }
 
   // EDIT PANEL
   async function getTeamDataById(teamId) {
+    //setCurrentTeamId(837, () => console.log(currentTeamId));
+
+    //return;
+
+    //setCurrentTeamId(272178);
+
     await teamsController.GetById(teamId).then((data) => {
-      x(data[0]);
+      let iniCurrentTeamEditServerData: TeamEntity = {
+        teamId: 32,
+        teamName: 'sad',
+        description: 'dd',
+      };
+      // x(iniCurrentTeamEditServerData);
+      setCurrentTeamEditServerData(iniCurrentTeamEditServerData);
     });
   }
 
@@ -104,6 +121,16 @@ export default function PagesAdminTeams() {
     }));
   }
 
+  function handleDeleteModalConfirm() {
+    handleDeleteModalClose();
+    console.log(teamsList);
+    let newArray = teamsList.filter(function (obj) {
+      return obj.teamId;
+    });
+
+    setTeamsList(newArray);
+  }
+
   async function handleSaveClick() {
     let currentTeamsList = teamsList.slice();
     let newId = currentTeamsList.length + 1;
@@ -112,7 +139,7 @@ export default function PagesAdminTeams() {
       teamName: txtTeamNameValueState,
     });
     await teamsController.Save(currentTeamsList).then((data) => {
-      console.log(data);
+      //console.log(data);
     });
     //setShowPanel('list');
   }
@@ -147,7 +174,7 @@ export default function PagesAdminTeams() {
         <br />
         <input
           type="text"
-          value={txtTeamNameValueState}
+          value={currentTeamEditServerData.teamName}
           onChange={handleOnChange}
         ></input>
         <RenderValidation></RenderValidation>
