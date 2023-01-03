@@ -14,18 +14,18 @@ export default function ModalConfirm(params: ModalConfirmParams) {
   // params.body -> message in the body of the confirm modal
   console.log(params);
 
+  const handleClose = () => {
+    params.params.onClose();
+  };
+
   return (
     <div>
-      <Modal
-        show={params.params.show}
-        onHide={params.onClose}
-        animation={false}
-      >
+      <Modal show={params.params.show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Confirm</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>{params.body}</Modal.Body>
+        <Modal.Body>{params.params.body}</Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary">No</Button>

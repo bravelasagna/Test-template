@@ -8,7 +8,7 @@ import TeamsController from './../controllers/teamsController';
 
 import { TeamEntity } from './../models/teamEntity';
 import ModalConfirm from '../components/modalConfirm';
-import {ModalConfirmParams} from '../components/modalConfirm';
+import { ModalConfirmParams } from '../components/modalConfirm';
 
 export default function PagesAdminTeams() {
   // SYSTEM
@@ -23,10 +23,16 @@ export default function PagesAdminTeams() {
     {}
   );
   const [txtTeamNameValueState, setTxtTeamNameValueState] = useState('');
-  let iniDeleteConfirmParams:ModalConfirmParams = {show:false, body:'iii', onClose:null};
-  const [deleteConfirmParams, setDeleteConfirmParams] = useState(iniDeleteConfirmParams);
+  let iniDeleteConfirmParams: ModalConfirmParams = {
+    show: false,
+    body: 'Are you sure you want to delete this Team?',
+    onClose: handleDeleteModalClose(),
+  };
+  const [deleteConfirmParams, setDeleteConfirmParams] = useState(
+    iniDeleteConfirmParams
+  );
 
-  let a:ModalConfirmParams = null;
+  let a: ModalConfirmParams = null;
 
   // DATAGRID CONFIG
   const columns = [
@@ -84,10 +90,15 @@ export default function PagesAdminTeams() {
     //let a = deleteConfirmParams;
     //a.show = true;
 
-    setDeleteConfirmParams(deleteConfirmParams => ({
+    setDeleteConfirmParams((deleteConfirmParams) => ({
       ...deleteConfirmParams,
-      show: true}));
+      show: true,
+    }));
     //setShowPanel('list');
+  }
+
+  function handleDeleteModalClose() {
+
   }
 
   async function handleSaveClick() {
