@@ -8,6 +8,7 @@ import TeamsController from './../controllers/teamsController';
 
 import { TeamEntity } from './../models/teamEntity';
 import ModalConfirm from '../components/modalConfirm';
+import {ModalConfirmParams} from '../components/modalConfirm';
 
 export default function PagesAdminTeams() {
   // SYSTEM
@@ -22,7 +23,10 @@ export default function PagesAdminTeams() {
     {}
   );
   const [txtTeamNameValueState, setTxtTeamNameValueState] = useState('');
-  const [showTeamDeleteConfirm, setShowTeamDeleteConfirm] = useState(false);
+  let iniDeleteConfirmParams:ModalConfirmParams = {show:false, body:'iii', onClose:null};
+  const [deleteConfirmParams, setDeleteConfirmParams] = useState(iniDeleteConfirmParams);
+
+  let a:ModalConfirmParams = null;
 
   // DATAGRID CONFIG
   const columns = [
@@ -77,7 +81,12 @@ export default function PagesAdminTeams() {
 
   function handleDeleteClick() {
     // shows modal dialog confirm
-    setShowTeamDeleteConfirm(true);
+    //let a = deleteConfirmParams;
+    //a.show = true;
+
+    setDeleteConfirmParams(deleteConfirmParams => ({
+      ...deleteConfirmParams,
+      show: true}));
     //setShowPanel('list');
   }
 
@@ -133,7 +142,7 @@ export default function PagesAdminTeams() {
         <button onClick={(e) => handleCancelClick()}>Torna alla lista</button>
         <button onClick={(e) => handleDeleteClick()}>Delete</button>
         <button onClick={(e) => handleSaveClick()}>Save</button>
-        <ModalConfirm show={showTeamDeleteConfirm}></ModalConfirm>
+        <ModalConfirm params={deleteConfirmParams}></ModalConfirm>
       </div>
     </div>
   );
